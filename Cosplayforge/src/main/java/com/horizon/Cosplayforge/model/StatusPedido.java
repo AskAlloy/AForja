@@ -1,19 +1,28 @@
 package com.horizon.Cosplayforge.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Entity
-@Table(name = "StatusPedido")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-
-public class StatusPedido {
+public enum StatusPedido {
+	
+	PENDENTE,
+    PAGAMENTO_EM_ANALISE,
+    PAGAMENTO_RECUSADO,
+    PAGO,
+    EM_PRODUCAO,
+    PRONTO,
+    ENVIADO,
+    ENTREGUE,
+    CANCELADO;
+	
+	public boolean podeIrPara(StatusPedido destino) {
+    return switch (this) {
+        case PENDENTE -> destino == PAGAMENTO_EM_ANALISE || destino == CANCELADO;
+        case PAGAMENTO_EM_ANALISE -> destino == PAGO || destino == PAGAMENTO_RECUSADO;
+        case PAGAMENTO_RECUSADO -> destino == PENDENTE || destino == CANCELADO;
+        case PAGO -> destino == EM_PRODUCAO || destino == PRONTO;
+        case EM_PRODUCAO -> destino == PRONTO;
+        case PRONTO -> destino == ENVIADO;
+        case ENVIADO -> destino == ENTREGUE;
+        case ENTREGUE, CANCELADO -> false;
+    };
+    }
 
 }

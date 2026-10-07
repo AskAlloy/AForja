@@ -21,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class Usuario {
-	 @Id
+	@Id
 	    @GeneratedValue(strategy = GenerationType.UUID)
 	    @Column(name = "id", updatable = false, nullable = false)
 	    private UUID id;
@@ -37,6 +37,9 @@ public class Usuario {
 
 	    @Column(name = "senha_hash", nullable = false, length = 255)
 	    private String senhaHash;
+	    
+	    @Column(name = "user_cpf", nullable = false, unique = true, length = 11 )
+	    private String cpf;
 
 	    @Enumerated(EnumType.STRING)
 	    @Column(nullable = false, length = 20)
