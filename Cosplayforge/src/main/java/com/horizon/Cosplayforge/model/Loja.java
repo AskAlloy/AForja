@@ -23,6 +23,7 @@ public class Loja {
 
 	 @Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
+	 @EqualsAndHashCode.Include
 	 private Long id;
 	 
 	 @OneToOne

@@ -45,6 +45,9 @@ public class Produto {
 	 
 	@Column(name = "quantidade_estoque", nullable = false)
 	private Integer quantidadeEstoque;
+	
+	@Column(name="imagem_produto", length = 1000)
+	private String imagem;
 	 
 	
 	@Column(nullable = false)
