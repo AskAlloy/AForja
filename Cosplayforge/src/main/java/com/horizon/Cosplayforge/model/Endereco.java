@@ -21,7 +21,8 @@ public class Endereco {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @EqualsAndHashCode.Include
+	private Long id;
 	
 	// Endereço de origem dos envios (RF009 - Calcular Frete).
     @Column(nullable = false, length = 8)
@@ -45,13 +46,9 @@ public class Endereco {
     @Column(nullable = false, length = 2)
     private String uf;
     
-    @OneToOne
-    @JoinColumn(name= "loja_id")
-    private Loja loja;
-    
     
     @ManyToOne
-    @JoinColumn(name= "user_id")
+    @JoinColumn(name = "usuario_id")   // antes era user_id
     private Usuario usuario;
 
 }

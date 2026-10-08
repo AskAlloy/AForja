@@ -6,10 +6,6 @@ import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.*;
 
 @Entity
@@ -18,6 +14,9 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+
 public class Produto {
 
 	 @Id
@@ -51,7 +50,19 @@ public class Produto {
 	@Column(nullable = false)
 	@Builder.Default
 	private Boolean personalizavel = false;
-	 
+	
+	@Column(name = "peso_kg", nullable = false, precision = 6, scale = 3)
+	private BigDecimal pesoKg;
+
+	@Column(name = "altura_cm", nullable = false)
+	private Integer alturaCm;
+
+	@Column(name = "largura_cm", nullable = false)
+	private Integer larguraCm;
+
+	@Column(name = "comprimento_cm", nullable = false)
+	private Integer comprimentoCm;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 10)
 	@Builder.Default
@@ -76,7 +87,7 @@ public class Produto {
     }
  
     /**
-     * RN004 - Verificar se tem disponivel
+     *Verificar se tem disponivel
      */
     public boolean estaDisponivel() {
         return status == StatusProduto.ATIVO && quantidadeEstoque != null && quantidadeEstoque > 0;

@@ -7,10 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.*;
 
 @Entity
@@ -19,12 +15,15 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+
 
 public class Loja {
 
 	 @Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
-	 private Long Id;
+	 private Long id;
 	 
 	 @OneToOne
 	    @JoinColumn(name = "usuario_id", nullable = false, unique = true)
@@ -45,10 +44,10 @@ public class Loja {
 	 
 	    @Column(length = 20)
 	    private String telefone;
-	 
-	    // Endereço de origem dos envios (RF009 - Calcular Frete).
-	    @Column(nullable = false, length = 8)
-	    private String cep_loja;
+	    
+	    @OneToOne(cascade = CascadeType.ALL)
+	    @JoinColumn(name = "endereco_id", nullable = false)
+	    private Endereco endereco;
 	 
 	    @Enumerated(EnumType.STRING)
 	    @Column(nullable = false, length = 20)

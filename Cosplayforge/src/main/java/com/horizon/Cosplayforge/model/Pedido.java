@@ -1,7 +1,5 @@
 package com.horizon.Cosplayforge.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -69,7 +67,9 @@ public class Pedido {
     @Column(name = "codigo_rastreio", length = 50)
     private String codigoRastreio;
  
-    
+    @ManyToOne
+    @JoinColumn(name = "endereco_entrega_id", nullable = false)
+    private Endereco enderecoEntrega;
  
     @Column(name = "data_criacao", nullable = false, updatable = false)
     private LocalDateTime dataCriacao;

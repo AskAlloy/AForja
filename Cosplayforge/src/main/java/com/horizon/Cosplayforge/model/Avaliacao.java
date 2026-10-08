@@ -5,10 +5,6 @@ import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.*;
 
 
@@ -18,7 +14,8 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Avaliacao {
 
 	 @Id
@@ -30,7 +27,7 @@ public class Avaliacao {
     @JoinColumn(name = "cliente_id", nullable = false)
     private Usuario cliente;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "pedido_id", nullable = false)
     private Pedido pedido;
 

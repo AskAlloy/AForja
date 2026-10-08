@@ -18,8 +18,8 @@ public class Pagamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "pedido_id", nullable = false, unique = true)
+    @ManyToOne
+    @JoinColumn(name = "pedido_id", nullable = false)
     private Pedido pedido;
 
     @Column(nullable = false, precision = 10, scale = 2)
@@ -27,7 +27,7 @@ public class Pagamento {
  
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private StatusPagamento status;
+    private StatusPagamento status = StatusPagamento.PENDENTE;
 
     @Column(name = "mp_payment_id", unique = true)
     private String mercadoPagoPaymentId;
@@ -41,4 +41,15 @@ public class Pagamento {
     @Column(name = "data_atualizacao", nullable = false)
     private LocalDateTime dataAtualizacao;
 
+    @PrePersist
+    protected void aoCriar() {
+        LocalDateTime agora = LocalDateTime.now();
+        this.dataCriacao = agora;
+        this.dataAtualizacao = agora;
+    }
+ 
+    @PreUpdate
+    protected void aoAtualizar() {
+        this.dataAtualizacao = LocalDateTime.now();
+    }
 }
